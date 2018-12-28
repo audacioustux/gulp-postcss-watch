@@ -16,6 +16,9 @@ function pcss(cb, path = "src/**/*.pcss") {
   gulp
     .src(path)
     .pipe(postcss(postcssPlugins))
+    .on('error', (err) => {
+      console.log(err);
+    })
     .pipe(rename({ extname: ".module.css" }))
     .pipe(
       gulp.dest(file => {
