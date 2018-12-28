@@ -1,5 +1,6 @@
 const gulp = require("gulp");
 const rename = require("gulp-rename");
+const _pick = require("lodash").pick;
 
 function pcss(cb, path = "src/**/*.pcss") {
   const postcss = require("gulp-postcss");
@@ -16,8 +17,8 @@ function pcss(cb, path = "src/**/*.pcss") {
   gulp
     .src(path)
     .pipe(postcss(postcssPlugins))
-    .on('error', (err) => {
-      console.log(err);
+    .on("error", err => {
+      console.error(_pick(err, ["name", "reason", "file", "line", "source"]));
     })
     .pipe(rename({ extname: ".module.css" }))
     .pipe(
